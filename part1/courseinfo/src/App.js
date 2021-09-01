@@ -21,9 +21,9 @@ const Part = (props) => {
 const Content = (props) => {
   return (
     <div>
-      <Part name={props.partsArray[0].partName} exerciseNum={props.partsArray[0].exerciseNum}/>
-      <Part name={props.partsArray[1].partName} exerciseNum={props.partsArray[1].exerciseNum} />
-      <Part name={props.partsArray[2].partName} exerciseNum={props.partsArray[2].exerciseNum} />
+      <Part name={props.partsArray[0].name} exerciseNum={props.partsArray[0].exercises}/>
+      <Part name={props.partsArray[1].name} exerciseNum={props.partsArray[1].exercises} />
+      <Part name={props.partsArray[2].name} exerciseNum={props.partsArray[2].exercises} />
     </div>
   )
 }
@@ -38,26 +38,19 @@ const Total = (props) => {
 
 const App = () => {
   const course = 'Half Stack application development'
-  const part1Name = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2Name = 'Using props to pass data'
-  const exercises2 = 7
-  const part3Name = 'State of a component'
-  const exercises3 = 14
-
   let part1 = {
-    partName: part1Name,
-    exerciseNum: exercises1
+    name: 'Fundamentals of React',
+    exercises: 10
   }
 
   let part2 = {
-    partName: part2Name,
-    exerciseNum: exercises2
+    name: 'Using props to pass data',
+    exercises: 7
   }
 
   let part3 = {
-    partName: part3Name,
-    exerciseNum: exercises3
+    name: 'State of a component',
+    exercises: 14
   }
 
   let partsArray = [part1, part2, part3]
@@ -66,7 +59,7 @@ const App = () => {
     <div>
       <Header courseName={course}/>
       <Content partsArray={partsArray}/>
-      <Total arrOfExerciseNums={[exercises1, exercises2, exercises3]}/>
+      <Total arrOfExerciseNums={[part1.exercises, part2.exercises, part3.exercises]}/>
     </div>
   )
 }
