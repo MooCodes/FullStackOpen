@@ -9,11 +9,18 @@ const Button = ({ onClick, text }) => {
 }
 
 const Stats = ( {good, neutral, bad }) => {
+  const total = good + neutral + bad
+  const average = total === 0 ? 0 : (good - bad) / (total)
+  const posFeedbackPercentage = total === 0 ? 0 : (good / total) * 100
+
   return (
     <div>
       good {good}<br></br>
       neutral {neutral}<br></br>
       bad {bad}<br></br>
+      all {total}<br></br>
+      average {average}<br></br>
+      positive {posFeedbackPercentage} %
     </div>
   )
 }
