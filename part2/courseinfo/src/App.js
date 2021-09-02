@@ -5,9 +5,9 @@ const Header = ({ course }) => {
 }
 
 const Total = ({ course }) => {
-  const sum = course.parts.reduce((acc, curr) => acc + curr.exercises, 0)
+  const total = course.parts.reduce((acc, curr) => acc + curr.exercises, 0)
   return (
-    <p><strong>total of {sum} exercises</strong></p>
+    <p><strong>total of {total} exercises</strong></p>
   )
 }
 
