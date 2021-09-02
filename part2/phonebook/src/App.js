@@ -18,15 +18,28 @@ const App = () => {
     setNewName(e.target.value)
   }
 
-  const onButtonPressed = (e) => {
+  const onNewPerson = (e) => {
     e.preventDefault()
-    setPersons(persons.concat({ id: persons.length + 1, name: newName}))
+
+    const alreadyInPhonebook = (name) => {
+      let exists = false
+      persons.forEach(person => {
+        if (person.name === name)
+          exists = true
+      })
+      return exists
+    }
+
+    if (!alreadyInPhonebook(newName))
+      setPersons(persons.concat({ id: persons.length + 1, name: newName}))
+    else
+      window.alert(`${newName} has already been added to the phonebook.`)
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={onButtonPressed}>
+      <form onSubmit={onNewPerson}>
         <div>
           name: <input onChange={onNameChange}/>
         </div>
