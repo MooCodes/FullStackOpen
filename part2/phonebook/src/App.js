@@ -10,19 +10,25 @@ const Person = ( {person} ) => {
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { id: 1, name: 'Arto Hellas', number: '040-1234567' }
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ])
   const [newName, setNewName] = useState('')
 
   const [newNumber, setNewNumber] = useState('')
 
-  const onNameChange = (e) => {
-    setNewName(e.target.value)
-  }
+  const [filterInput, setFilterInput] = useState('')
 
-  const onNumberChange = (e) => {
+  const onNameChange = (e) =>
+    setNewName(e.target.value)
+
+  const onNumberChange = (e) =>
     setNewNumber(e.target.value)
-  }
+
+  const onFilterChange = (e) =>
+    setFilterInput(e.target.value)
 
   const onNewPerson = (e) => {
     e.preventDefault()
@@ -45,6 +51,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        filter shown with <input onChange={onFilterChange} />
+      </div>
+      <h2>add a new</h2>
       <form onSubmit={onNewPerson}>
         <div>
           name: <input onChange={onNameChange} />
@@ -58,7 +68,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       {
-        persons.map(person => <Person key={person.id} person={person}/>)
+        persons.filter(p => p.name.includes(filterInput)).map(person => <Person key={person.id} person={person}/>)
       }
     </div>
   )
