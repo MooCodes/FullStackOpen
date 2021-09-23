@@ -5,7 +5,23 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios'
 
-const Results = ({ data }) => {
+const Button = (props) => {
+  let country = props.country
+  let setSearchTerm = props.setSearchTerm
+  const handleClick = (e) =>
+    setSearchTerm(props.country.name)
+
+  return (
+    <div>
+      <button onClick={handleClick}>show</button>
+    </div>
+  )
+}
+
+const Results = (props) => {
+  console.log(props, "props")
+  let data = props.results
+  let setSearchTerm = props.setSearchTerm
 
   // limit more than 10 results
   if (data.length > 10) {
@@ -16,13 +32,17 @@ const Results = ({ data }) => {
     )
   }
   
-  // ten or fewer countries, but more than 1
+  // multiple countries - ten or fewer countries, but more than 1
   if (data.length <= 10 && data.length > 1) { 
     // so just display the names of the countries
     return (
       <div>
         {
-          data.map(country => <div key={country.name}>{country.name}</div>)
+          data.map(country => 
+            <div key={country.name}>
+              {country.name} <Button country={country} setSearchTerm={setSearchTerm}/>
+            </div>
+          )
         }
       </div>
     )
@@ -59,7 +79,7 @@ function App() {
     // empty searchTerm, so don't make request
     if (searchTerm !== '') {
       axios
-        .get(`https://restcountries.eu/rest/v2/name/${searchTerm}`)
+        .get(`https://restcountries.com/v2/name/${searchTerm}`)
         .then(res => {
           // got response
           console.log(res.data)
@@ -73,7 +93,7 @@ function App() {
     return (
       <div>
         find countries <input type="text" onChange={handleChange} />
-        <Results data={results} />
+        <Results results={results} setSearchTerm={setSearchTerm} />
       </div>
     );
   }
