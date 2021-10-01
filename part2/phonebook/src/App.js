@@ -34,8 +34,19 @@ const App = () => {
       return exists
     }
 
-    if (!alreadyInPhonebook(newName))
-      setPersons(persons.concat({ id: persons.length + 1, name: newName, number: newNumber }))
+    if (!alreadyInPhonebook(newName)) {
+      // add person to back-end
+      const newPerson = {
+        name: newName,
+        number: newNumber
+      }
+
+      axios
+        .post('http://localhost:3001/persons', newPerson)
+        .then(res => {
+          setPersons(persons.concat(res.data))
+        })
+    }
     else
       window.alert(`${newName} has already been added to the phonebook.`)
   }
