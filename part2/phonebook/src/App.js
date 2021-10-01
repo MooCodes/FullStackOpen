@@ -76,7 +76,7 @@ const App = () => {
         onNameChange={onNameChange} 
         onNumberChange={onNumberChange} />
       <h3>Numbers</h3>
-      <Phonebook persons={persons.filter(p => p.name.includes(filterInput))}/>
+      <Phonebook setPersons={setPersons} persons={persons.filter(p => p.name.includes(filterInput))}/>
     </div>
   )
 }
