@@ -49,7 +49,11 @@ const App = () => {
         .create(newPerson)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
-          setMessage(`Added ${returnedPerson.name}`)
+          let msgObj = {
+            msg: `Added ${returnedPerson.name}`,
+            class: 'success'
+          }
+          setMessage(msgObj)
           
           setTimeout(() => {
             setMessage(null)
@@ -67,6 +71,19 @@ const App = () => {
           .update(person.id, newPerson)
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id === returnedPerson.id ? returnedPerson : p))
+          })
+          .catch(err => {
+            console.log('eeeerrr')
+            let msgObj = {
+              msg: `Information of ${person.name} has already been removed from server`,
+              class: 'error'
+            }
+            
+            setMessage(msgObj)
+
+            setTimeout(() => {
+              setMessage(null)
+            }, 3000)
           })
       }
     }
