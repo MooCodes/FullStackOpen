@@ -47,15 +47,21 @@ const App = () => {
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
         })
-
-      axios
-        .post('http://localhost:3001/persons', newPerson)
-        .then(res => {
-          setPersons(persons.concat(res.data))
-        })
     }
-    else
-      window.alert(`${newName} has already been added to the phonebook.`)
+    else {
+      if (window.confirm(`${newName} has already been added to the phonebook, replace the old number with a new one?`)) {
+        const person = persons.find(p => p.name === newName)
+        const newPerson = { ...person, number: newNumber }
+
+        console.log(newPerson)
+
+        personService
+          .update(person.id, newPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(p => p.id === returnedPerson.id ? returnedPerson : p))
+          })
+      }
+    }
   }
 
   useEffect(() => {

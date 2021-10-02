@@ -9,19 +9,19 @@ const Person = ({ person, deletePerson }) => {
 }
 
 const Phonebook = ({ persons, setPersons }) => {
-    const deletePerson = (id) => {
-        if (window.confirm(`Are you sure you want to delete this person from the phonebook?`))
+    const deletePerson = (person) => {
+        if (window.confirm(`Are you sure you want to delete ${person.name} from the phonebook?`))
             personService
-                .deletePerson(id)
+                .deletePerson(person.id)
                 .then(returnedPersons => {
                     console.log(returnedPersons)
-                    setPersons(persons.filter(p => p.id !== id))
+                    setPersons(persons.filter(p => p.id !== person.id))
                 })
     }
     return (
         <div>
             {
-                persons.map(person => <Person key={person.id} person={person} deletePerson={() => deletePerson(person.id)} />)
+                persons.map(person => <Person key={person.id} person={person} deletePerson={() => deletePerson(person)} />)
             }
         </div>
     )
