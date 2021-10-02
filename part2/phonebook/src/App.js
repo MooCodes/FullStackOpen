@@ -4,6 +4,7 @@ import SearchFilter from './components/SearchFilter'
 import Form from './components/Form'
 import Phonebook from './components/Phonebook'
 import personService from './services/persons' 
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -13,6 +14,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
 
   const [filterInput, setFilterInput] = useState('')
+
+  const [message, setMessage] = useState(null)
 
   const onNameChange = (e) =>
     setNewName(e.target.value)
@@ -46,6 +49,11 @@ const App = () => {
         .create(newPerson)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
+          setMessage(`Added ${returnedPerson.name}`)
+          
+          setTimeout(() => {
+            setMessage(null)
+          }, 3000)
         })
     }
     else {
@@ -75,6 +83,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message}/>
       <SearchFilter onFilterChange={onFilterChange}/>
       <h3>add a new</h3>
       <Form 
