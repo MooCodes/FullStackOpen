@@ -105,7 +105,6 @@ function App() {
 
 
   if (results.countryData.length > 0) {
-    console.log('yo??')
     return (
       <div>
         find countries <input type="text" onChange={handleChange} />
