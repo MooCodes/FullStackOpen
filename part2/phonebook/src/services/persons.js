@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'api/persons'
+const baseUrl = process.env.NODE_ENV === 'development' ? 'https://damp-plateau-97459.herokuapp.com/api/persons' : 'api/persons'
 
 const getAll = () => {
     const request = axios.get(baseUrl)
